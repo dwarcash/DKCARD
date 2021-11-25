@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { storage } from '../../firebase';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
@@ -63,35 +63,36 @@ const Profile = ({ data, setData }) => {
             <div class="upper">
                 <div class="views-label"><i class="fas fa-eye"></i> Views: <b>10757</b></div>
                 {/* <!-- User Profile Pic --> */}
-                <input type="file" onChange={(e) => addProductHandler(e.target.files[0])} />
-                <img src={data.companyLogoUrl} class="profile-pic-img" />
+                {!data.public && <input type="file" onChange={(e) => addProductHandler(e.target.files[0])} />}
+                {data.companyLogoUrl && <img src={data.companyLogoUrl} class="profile-pic-img" />}
 
                 {/* <!-- User Company Name --> */}
-                <div class="firmname">{data.companyName}</div>
+                {data.companyName && <div class="firmname">{data.companyName}</div>}
 
 
 
                 {/* <!-- User First Name and Last Name --> */}
-                <div className="name">{data.founder1}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>
-                <div className="name">{data.founder2}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>
-                <div className="name">{data.founder3}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>
+                {data.founder1 && <div className="name">{data.founder1}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>}
+                {data.founder2 && <div className="name">{data.founder2}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>}
+                {data.founder3 && <div className="name">{data.founder3}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}></i></span></div>}
                 <div class="contact-buttons">
-                    <a class="contact-button" href={`tel:${data.mobile}`}>
-                        <i class="fas fa-phone fa-flip-horizontal"></i>
-                        Call
-                    </a>
-                    <a class="contact-button" target="_blank" href={`https://wa.me/${data.mobile}?text=Got reference from your Digital vCard. Want to know more details.`}>
-                        <i class="fab fa-whatsapp"></i>
-                        Whatsapp
-                    </a>
-                    <a class="contact-button" target="_blank" href={data.addressLink}>
-                        <i class="fas fa-map-marker-alt fa-flip-horizontal"></i>
-                        Direction
-                    </a>
-                    <a class="contact-button" target="_blank" href={`mailto:${data.addressLink}`}>
-                        <i class="fas fa-envelope fa-flip-horizontal"></i>
-                        Mail
-                    </a>
+                    {data.mobile &&
+                        <><a class="contact-button" href={`tel:${data.mobile}`}>
+                            <i class="fas fa-phone fa-flip-horizontal"></i>
+                            Call
+                        </a><a class="contact-button" target="_blank" href={`https://wa.me/${data.mobile}?text=Got reference from your Digital vCard. Want to know more details.`}>
+                                <i class="fab fa-whatsapp"></i>
+                                Whatsapp
+                            </a></>
+                    }
+                    {data.addressLink &&
+                        <><a class="contact-button" target="_blank" href={data.addressLink}>
+                            <i class="fas fa-map-marker-alt fa-flip-horizontal"></i>
+                            Direction
+                        </a><a class="contact-button" target="_blank" href={`mailto:${data.addressLink}`}>
+                                <i class="fas fa-envelope fa-flip-horizontal"></i>
+                                Mail
+                            </a></>}
                 </div>
             </div>
             <svg viewBox="0 0 400 25" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink">
@@ -109,7 +110,7 @@ const Profile = ({ data, setData }) => {
                 <table class="contact-action-table">
                     <tbody>
 
-                        <tr>
+                        {data.addressLink && <tr>
                             <td>
                                 <a target="_blank" href={data.addressLink}>
                                     <i class="fas fa-map-marker-alt contact-action-container-icon"></i>
@@ -120,9 +121,9 @@ const Profile = ({ data, setData }) => {
                                     {data.address}
                                 </a>
                             </td>
-                        </tr>
+                        </tr>}
 
-                        <tr>
+                        {data.email && <tr>
                             <td>
                                 <a href={`mailto:${data.email}`}>
                                     <i class="fas fa-envelope contact-action-container-icon"></i>
@@ -135,8 +136,8 @@ const Profile = ({ data, setData }) => {
                                 </a><br />
 
                             </td>
-                        </tr>
-                        <tr>
+                        </tr>}
+                        {data.website && <tr>
                             <td>
                                 <a target="_blank" href={data.website}>
                                     <i class="fas fa-globe contact-action-container-icon"></i>
@@ -147,8 +148,8 @@ const Profile = ({ data, setData }) => {
                                     {data.website}
                                 </a>
                             </td>
-                        </tr>
-                        <tr>
+                        </tr>}
+                        {data.mobile && <tr>
                             <td>
                                 <a target="_blank" href={`tel:${data.mobile}`}>
                                     <i class="fas fa-phone fa-flip-horizontal contact-action-container-icon"></i>
@@ -160,14 +161,14 @@ const Profile = ({ data, setData }) => {
                                 </a>
 
                             </td>
-                        </tr>
+                        </tr>}
 
                     </tbody>
                 </table>
 
                 <div class="p-30"></div>
 
-                <div class="whatsapp-input">
+                {/* <div class="whatsapp-input">
                     <div class="input-wrapper">
                         <input type="tel" id="whatsapp-input" class="input" placeholder="Enter whatsapp number" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
                     </div>
@@ -177,31 +178,29 @@ const Profile = ({ data, setData }) => {
                         onclick="">
                         <i class="fab fa-whatsapp"></i>Share on Whatsapp
                     </a>
-                </div>
+                </div> */}
 
                 <div class="p-20"></div>
 
-                <div class="shadow-buttons">
-                    <a class="shadow-button" href="https://vcard-bucket.s3.us-east-2.amazonaws.com/A001/1/1.vcf" download><i class="fas fa-download shadow-button-icon"></i>Add to Phone Book</a>
-                    <a class="shadow-button" onclick=""><i class="fas fa-share-alt shadow-button-icon"></i>Share</a>
-                </div>
-                <div><a class="shadow-button save-card-button"><i class="fas fa-cloud-download-alt shadow-button-icon"></i>Save Card</a></div>
+                
+                    <a class="shadow-button" onclick="" href={`http://localhost:3000/${data.id}`}><i class="fas fa-share-alt shadow-button-icon" ></i>Share</a>
+                
 
                 <div class="p-30"></div>
 
                 <ul class="inprofile share-buttons">
-                    <li class="share-button">
+                    {data.facebook && <li class="share-button">
                         <a target="_blank" href={`${data.facebook}`}><i class="share-button-facebook fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="share-button">
+                    </li>}
+                    {data.twitter && <li class="share-button">
                         <a target="_blank" href={`${data.twitter}`}><i class="share-button-twitter fab fa-twitter"></i></a>
-                    </li>
-                    <li class="share-button">
-                        <a target="_blank" href={`${data.instagram}`} ><i class="share-button-instagram fab fa-instagram"></i></a>
-                    </li>
-                    <li class="share-button">
+                    </li>}
+                    {data.insta && <li class="share-button">
+                        <a target="_blank" href={`${data.insta}`} ><i class="share-button-instagram fab fa-instagram"></i></a>
+                    </li>}
+                    {data.linkedin && <li class="share-button">
                         <a target="_blank" href={`${data.linkedin}`} ><i class="share-button-linkedin fab fa-linkedin-in"></i></a>
-                    </li>
+                    </li>}
                 </ul>
 
                 <div class="p-20"></div>

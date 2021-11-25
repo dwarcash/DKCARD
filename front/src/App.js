@@ -4,6 +4,7 @@ import Auth from './Pages/Auth';
 import Home from './Pages/Home';
 import AddBusiness from './Pages/AddBusiness';
 import EditBusiness from './Pages/EditBusiness';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
 
@@ -23,29 +24,34 @@ function App() {
 
   const [isEdit, setIsEdit] = useState(false)
 
+
+
   return (
     <div className="App">
-      {data && <button onClick={logOut}>LOGOUT</button>}
-      {data && data.companyName && !isEdit && <button onClick={() => setIsEdit(true)}>EDIT</button>}
+      <Router>
+        <Switch>
+          <Route path="/:id" >
+            <Home />
+          </Route>
+          <Route exact path="/" >
+            {data && <button onClick={logOut}>LOGOUT</button>}
+            {data && data.companyName && !isEdit && <button onClick={() => setIsEdit(true)}>EDIT</button>}
 
-      {
-      
-      data ?
+            {
+              data ?
+                data.companyName ?
+                  isEdit ?
+                    <EditBusiness setData={setData} data={data} setIsEdit={setIsEdit} /> :
+                    <Home data={data} setData={setData} /> :
+                  <AddBusiness setData={setData} /> :
+                <Auth setData={setData} />
+            }
+          </Route>
+        </Switch>
+      </Router>
 
-        data.companyName ?
-
-        isEdit ?
-        <EditBusiness setData={setData} data={data} setIsEdit={setIsEdit}/> :
-          <Home data={data} setData={setData} /> :
-
-          <AddBusiness setData={setData} /> :
 
 
-        <Auth setData={setData} /> 
-
-        
-
-      }
 
     </div>
   );

@@ -258,7 +258,7 @@ strong, b {
     background: rgba(72, 72, 72, 0.55);
     flex: 1;
     border-bottom: 6px solid #37393A;
-    display: inline-block;
+    display: block;
 }
 
 .shadow-button .shadow-button-icon {

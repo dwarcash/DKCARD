@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Profile from '../Components/Profile/Profile'
 import AboutUs from '../Components/AboutUs/AboutUs'
 import Products from '../Components/Products/Products'
@@ -9,32 +9,61 @@ import Footer from '../Components/Footer/Footer'
 import Menu from '../Components/Menu/Menu'
 import ImageModal from '../Components/ImageModal/ImageModal'
 import ShareModal from '../Components/ShareModal/ShareModal'
+import { useParams } from 'react-router'
+import { useHttpClient } from '../shared/hooks/http-hook'
 
-export default function Home({data, setData}) {
+export default function Home({ }) {
+
+    const { id } = useParams()
+
+    const [data, setData] = useState()
+    const [uid, setUid] = useState(id)
+
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+    const check = async () => {
+        const responseData = await sendRequest(
+            process.env.REACT_APP_BACKEND_URL + '/fetchUser',
+            'POST',
+            JSON.stringify({
+                uid
+            }),
+            {
+                'Content-Type': 'application/json',
+            }
+        );
+        setData({ ...responseData, public: true })
+        console.log('arrived', data)
+    }
+
+    useEffect(() => {
+        if (uid) {
+            check()
+        }
+    }, [uid])
+
+
     return (
+
+
         <React.Fragment>
+            {data &&
+                <div>
+                    <Profile data={data} setData={setData} />
+                    <AboutUs data={data} setData={setData} />
+                    <Products data={data} setData={setData} />
+                    <Gallery data={data} setData={setData} />
+                    <Feedback data={data} setData={setData} />
+                    {!data.public && <Enquiry data={data} setData={setData} />}
+                    <Footer data={data} setData={setData} />
+                    <Menu />
 
-            <Profile data={data} setData={setData} />
-            <AboutUs data={data} setData={setData} />
-            <Products data={data} setData={setData} />
-            <Gallery data={data} setData={setData} />
-            <Feedback data={data} setData={setData} />
-            <Enquiry data={data} setData={setData} />
-            <Footer data={data} setData={setData} />
-            <Menu />
+                    <ImageModal />
+                    <ShareModal />
+                </div>
 
-            {/* Functional Rendering */}
-            <ImageModal />
-            <ShareModal />
+            }
 
-
-
-            
-            {/* Scripts */}
-            {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
-            <script src="../templates/common/js/star-rating.js"></script>
-            <script src="../templates/common/js/script.js"></script> */}
 
         </React.Fragment>
     )

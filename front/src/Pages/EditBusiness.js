@@ -128,7 +128,7 @@ const EditBusiness = ({ data, setData, setIsEdit }) => {
         speciality2: formState.inputs.speciality2.value,
         speciality3: formState.inputs.speciality3.value,
       }
-      
+
       const responseData = await sendRequest(
         process.env.REACT_APP_BACKEND_URL + '/editBusiness',
         'POST',
@@ -145,7 +145,7 @@ const EditBusiness = ({ data, setData, setIsEdit }) => {
           ...oldData,
           ...data
         }
-        
+
         localStorage.setItem('data', JSON.stringify(finalData))
 
         return finalData
@@ -164,7 +164,7 @@ const EditBusiness = ({ data, setData, setIsEdit }) => {
         <h2>Edit business details</h2>
         <hr />
         <form onSubmit={submitHandler}>
-        <Input
+          <Input
             id="companyName"
             element="input"
             type="text"
@@ -353,7 +353,25 @@ const EditBusiness = ({ data, setData, setIsEdit }) => {
           </Button>
         </form>
       </Card>
-    </React.Fragment>
+
+
+      <Card>
+      <h2>Enquiries</h2>
+        <hr />
+        {data.enquiries.map(fb => {
+          return (
+            <div className="card" key={fb.name}>
+              <h3 class="card-title">{fb.name}</h3>
+              <div>{fb.email}</div>
+              <div>{fb.mobile}</div>
+              <div>{fb.enquiry}</div>
+            </div>
+          )
+        })}
+
+      </Card>
+
+    </React.Fragment >
   );
 };
 

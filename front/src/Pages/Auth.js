@@ -14,7 +14,7 @@ import {
 import { useForm } from '../shared/hooks/form-hook';
 import { useHttpClient } from '../shared/hooks/http-hook';
 
-const Auth = ({setData}) => {
+const Auth = ({ setData }) => {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -50,7 +50,7 @@ const Auth = ({setData}) => {
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
-    } 
+    }
 
 
     setIsLoginMode(prevMode => !prevMode);
@@ -79,10 +79,11 @@ const Auth = ({setData}) => {
           'Content-Type': 'application/json',
         }
       );
-      
+
+      responseData.public = false
       console.log(responseData)
       setData(responseData)
-      
+
       localStorage.setItem('data', JSON.stringify(responseData))
 
     } catch (err) { console.log(err) }
@@ -118,7 +119,7 @@ const Auth = ({setData}) => {
           />
           {error && <div>
             {error}
-            </div>}
+          </div>}
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? 'LOGIN' : 'SIGNUP'}
           </Button>

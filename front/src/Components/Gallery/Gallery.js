@@ -102,11 +102,12 @@ const Gallery = ({ data, setData }) => {
 
             </div>
 
-            <div className="card">
+            {!data.public && <div className="card">
                 <h3 class="card-title">Add Image</h3>
                 <input multiple type="file" onChange={(e) => setImages(e.target.files)} />
                 <button onClick={ImageUploadHandler}>Upload</button>
-            </div>
+            </div>}
+            
             <div class="section-close"></div>
         </div>
     )

@@ -147,7 +147,10 @@ const AddBusiness = ({ setData }) => {
                 speciality1: formState.inputs.speciality1.value,
                 speciality2: formState.inputs.speciality2.value,
                 speciality3: formState.inputs.speciality3.value,
-
+                products: [],
+                gallery: [],
+                feedbacks: [],
+                enquiries: []
               }
 
               const responseData = await sendRequest(

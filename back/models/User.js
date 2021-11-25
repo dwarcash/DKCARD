@@ -30,7 +30,22 @@ const userSchema = new Schema({
             image: String
         }
     ],
-    gallery: [String]
+    gallery: [String],
+    feedbacks: [
+        {
+            rating: String,
+            name: String,
+            feedback: String,
+        }
+    ],
+    enquiries: [
+        {
+            name: String,
+            email: String,
+            mobile: String,
+            enquiry: String,
+        }
+    ]
 });
 
 module.exports = mongoose.model('User', userSchema)

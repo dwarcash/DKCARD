@@ -95,7 +95,7 @@ const Products = ({ data, setData }) => {
             <div class="p-10"></div>
             <div>
 
-                {data.products.map((product) => {
+                {data.products && data.products.map((product) => {
                     return (
                         <div class="card" key={product.name}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -115,12 +115,12 @@ const Products = ({ data, setData }) => {
                     )
                 })}
 
-                <div className="card">
+                {!data.public && <div className="card">
                     <h3 class="card-title">Add Product/Service</h3>
                     <input type="file" onChange={(e) => setProductImage(e.target.files[0])} />
                     <input type="text" placeholder="name" onChange={(e) => setProductName(e.target.value)} />
                     <button onClick={addProductHandler}>Add</button>
-                </div>
+                </div> }
 
 
             </div>

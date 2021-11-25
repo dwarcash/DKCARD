@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
         /* return next(new HttpError('invalid password', 403)); */
     }
 
-    res.json(existingUser)
+    res.json(existingUser.toObject({ getters: true }))
 }
 
 const signUp = async (req, res, next) => {
@@ -60,7 +60,7 @@ const signUp = async (req, res, next) => {
         return next(new HttpError('Creating user failed', 500));
     }
 
-    res.json(createdUser.toObject())
+    res.json(createdUser.toObject({ getters: true }))
 }
 
 
@@ -167,6 +167,56 @@ const addLogo = async (req, res, next) => {
     res.json(existingUser.toObject())
 }
 
+const addFeedback = async (req, res, next) => {
+    const { loginEmail, feedback } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    existingUser.feedbacks.push(feedback)
+
+    await existingUser.save();
+
+    res.json(existingUser.toObject())
+}
+
+const addEnquiry = async (req, res, next) => {
+    const { loginEmail, enquiry } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    existingUser.enquiries.push(enquiry)
+
+    await existingUser.save();
+
+    res.json(existingUser.toObject())
+}
+
+const fetchUser = async (req, res, next) => {
+    const { uid } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findById(uid);
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    console.log(existingUser)
+    if (existingUser) {
+        res.json(existingUser.toObject({ getters: true }))
+    }
+}
+
 
 
 exports.login = login;
@@ -176,3 +226,6 @@ exports.editBusiness = editBusiness;
 exports.addProduct = addProduct;
 exports.addGallery = addGallery;
 exports.addLogo = addLogo;
+exports.addFeedback = addFeedback;
+exports.addEnquiry = addEnquiry;
+exports.fetchUser = fetchUser;

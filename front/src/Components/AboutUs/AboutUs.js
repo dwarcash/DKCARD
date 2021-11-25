@@ -31,7 +31,7 @@ export default class Profile extends React.Component {
                             </td>
                         </tr>}
 
-                        {this.props.data.nature & <tr>
+                        {this.props.data.nature && <tr>
                             <td class="table-row-label">
                                 <h3 class="table-row-label-text">Nature Of Business</h3><b class="table-row-label-separator">:</b>
                             </td>

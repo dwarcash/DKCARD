@@ -94,7 +94,7 @@ const Gallery = ({ data, setData }) => {
                 {data.gallery.map(url => {
                     return (
                         <div class="image-wrapper" key={url}>
-                            <button onClick={() => deleteHandler(url)}>DELETE</button>
+                            {!data.public && <button onClick={() => deleteHandler(url)}>DELETE</button>}
                             <img onclick="" alt="Image 1" src={url} style={{ width: '100%' }} />
                         </div>
                     )

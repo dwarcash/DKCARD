@@ -12,11 +12,10 @@ import ShareModal from '../Components/ShareModal/ShareModal'
 import { useParams } from 'react-router'
 import { useHttpClient } from '../shared/hooks/http-hook'
 
-export default function Home({ }) {
+export default function Home({ data, setData }) {
 
     const { id } = useParams()
 
-    const [data, setData] = useState()
     const [uid, setUid] = useState(id)
 
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -39,7 +38,7 @@ export default function Home({ }) {
     useEffect(() => {
         if (uid) {
             check()
-        }
+        } 
     }, [uid])
 
 

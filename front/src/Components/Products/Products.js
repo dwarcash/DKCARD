@@ -100,11 +100,11 @@ const Products = ({ data, setData }) => {
                         <div class="card" key={product.name}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <h3 class="card-title">{product.name}</h3>
-                                <button onClick={() => deleteHandler(product.name)}>DELETE</button>
+                                {!data.public && <button onClick={() => deleteHandler(product.name)}>DELETE</button>}
                             </div>
 
 
-                            <img onclick="" alt="Digital Marketing Intelligence" src={product.image} style={{ width: '100%', marginBottom: '15px' }} />
+                            <img onclick="" alt={product.name} src={product.image} style={{ width: '100%', marginBottom: '15px' }} />
                             <div class="product-enquiry-section">
                                 <div class="product-price">
 

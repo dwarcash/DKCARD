@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem('data'))
     if (localData) {
-      setData(localData)
+      setData({...localData, public: false})
     }
   }, [])
 
@@ -30,9 +30,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/:id" >
-            <Home />
-          </Route>
+
           <Route exact path="/" >
             {data && <button onClick={logOut}>LOGOUT</button>}
             {data && data.companyName && !isEdit && <button onClick={() => setIsEdit(true)}>EDIT</button>}
@@ -46,6 +44,9 @@ function App() {
                   <AddBusiness setData={setData} /> :
                 <Auth setData={setData} />
             }
+          </Route>
+          <Route exact path="/:id" >
+            <Home data={data} setData={setData} />
           </Route>
         </Switch>
       </Router>

@@ -1,0 +1,23 @@
+.authentication__header {
+  color: white;
+  text-align: center;
+}
+
+.authentication {
+  width: 90%;
+  max-width: 25rem;
+  margin: 7rem auto;
+  text-align: center;
+}
+
+.authentication form {
+  margin-bottom: 1rem;
+}
+
+.auth__forgot {
+  margin-top: 2rem;
+  text-align: right;
+  color: #4343ff;
+  font-style: italic;
+  cursor: pointer;
+}

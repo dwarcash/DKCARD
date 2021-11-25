@@ -1,0 +1,68 @@
+.form-control {
+  margin: 1.25rem 0;
+  width: 100%;
+  height: 100%;
+}
+
+.form-control--relation {
+  width: auto;
+  margin: 0 1rem;
+}
+
+.form-control--datepicker {
+  margin: 0 0 1rem 0;
+}
+
+.form-control p {
+  margin: 0;
+}
+
+.form-control label,
+.form-control__input,
+.form-control textarea {
+  display: block;
+}
+
+
+
+.datepicker {
+  display: inline-block;
+}
+
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.form-control__input,
+.form-control textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  border: 1px solid #ccc;
+  background: #f8f8f869;
+  padding: 0.15rem 0.25rem;
+}
+
+.form-control__input-relation {
+  width: auto;
+  display: block;
+}
+
+.form-control__input:focus,
+.form-control textarea:focus {
+  outline: none;
+  background: #ebebeb;
+  border-color: #510077;
+}
+
+.form-control--invalid label,
+.form-control--invalid p {
+  color: red;
+}
+
+.form-control--invalid input,
+.form-control--invalid textarea {
+  border-color: red;
+  background: #ffd1d1;
+}

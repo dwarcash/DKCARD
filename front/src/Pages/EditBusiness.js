@@ -15,50 +15,82 @@ import {
 import { useForm } from '../shared/hooks/form-hook';
 import { useHttpClient } from '../shared/hooks/http-hook';
 
-const AddBusiness = ({ setData }) => {
+const EditBusiness = ({ data, setData, setIsEdit }) => {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
       companyName: {
-        value: '',
+        value: data.companyName,
         valid: true,
       },
-      founders: {
-        value: '',
+      founder1: {
+        value: data.founder1,
+        valid: true,
+      },
+      founder2: {
+        value: data.founder2,
+        valid: true,
+      },
+      founder3: {
+        value: data.founder3,
         valid: true,
       },
       address: {
-        value: '',
+        value: data.address,
         valid: true,
       },
       addressLink: {
-        value: '',
+        value: data.addressLink,
         valid: true,
       },
       email: {
-        value: '',
+        value: data.email,
         valid: true,
       },
       website: {
-        value: '',
+        value: data.website,
         valid: true,
       },
       mobile: {
-        value: '',
+        value: data.mobile,
+        valid: true,
+      },
+      facebook: {
+        value: data.facebook,
+        valid: true,
+      },
+      insta: {
+        value: data.insta,
+        valid: true,
+      },
+      twitter: {
+        value: data.twitter,
+        valid: true,
+      },
+      linkedin: {
+        value: data.linkedin,
         valid: true,
       },
       year: {
-        value: '',
+        value: data.year,
         valid: true,
       },
       nature: {
-        value: '',
+        value: data.nature,
         valid: true,
       },
-      specialities: {
-        value: '',
+      speciality1: {
+        value: data.speciality1,
+        valid: true,
+      },
+      speciality2: {
+        value: data.speciality2,
+        valid: true,
+      },
+      speciality3: {
+        value: data.speciality3,
         valid: true,
       },
     },
@@ -78,20 +110,27 @@ const AddBusiness = ({ setData }) => {
       const data = {
         loginEmail: localData.loginEmail,
         companyName: formState.inputs.companyName.value,
-        companyLogoUrl: formState.inputs.companyLogoUrl.value,
-        founders: formState.inputs.founders.value,
+        founder1: formState.inputs.founder1.value,
+        founder2: formState.inputs.founder2.value,
+        founder3: formState.inputs.founder3.value,
         address: formState.inputs.address.value,
         addressLink: formState.inputs.addressLink.value,
         email: formState.inputs.email.value,
         website: formState.inputs.website.value,
         mobile: formState.inputs.mobile.value,
+        facebook: formState.inputs.facebook.value,
+        insta: formState.inputs.insta.value,
+        twitter: formState.inputs.twitter.value,
+        linkedin: formState.inputs.linkedin.value,
         year: formState.inputs.year.value,
         nature: formState.inputs.nature.value,
-        specialities: formState.inputs.specialities.value,
+        speciality1: formState.inputs.speciality1.value,
+        speciality2: formState.inputs.speciality2.value,
+        speciality3: formState.inputs.speciality3.value,
       }
       
       const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + '/addBusiness',
+        process.env.REACT_APP_BACKEND_URL + '/editBusiness',
         'POST',
         JSON.stringify(data),
         {
@@ -114,7 +153,7 @@ const AddBusiness = ({ setData }) => {
 
     } catch (err) { console.log(err) }
 
-
+    setIsEdit(false)
   };
 
   return (
@@ -122,10 +161,10 @@ const AddBusiness = ({ setData }) => {
       <ErrorModal error={error} onClear={clearError} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h2>Add your business details</h2>
+        <h2>Edit business details</h2>
         <hr />
         <form onSubmit={submitHandler}>
-          <Input
+        <Input
             id="companyName"
             element="input"
             type="text"
@@ -133,34 +172,52 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
             errorText="Please enter your company name."
             onInput={inputHandler}
+            initialValid={true}
+            initialValue={data.companyName}
           />
-         <Input
-            id="companyLogoUrl"
+
+          <Input
+            id="founder1"
             element="input"
             type="text"
-            label="Company Logo Image URL"
+            label="Founder 1"
             validators={[]}
-            
+            initialValue={data.founder1}
             onInput={inputHandler}
+            initialValid={true}
           />
-          
-           <Input
-            id="founders"
+
+          <Input
+            id="founder2"
             element="input"
             type="text"
-            label="Founder Name"
+            label="Founder 2"
             validators={[]}
-            
+            initialValue={data.founder2}
             onInput={inputHandler}
+            initialValid={true}
           />
+
+          <Input
+            id="founder3"
+            element="input"
+            type="text"
+            label="Founder 3"
+            validators={[]}
+            initialValue={data.founder3}
+            onInput={inputHandler}
+            initialValid={true}
+          />
+
           <Input
             id="address"
             element="input"
             type="text"
             label="Address"
             validators={[]}
-            
+            initialValue={data.address}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="addressLink"
@@ -168,8 +225,9 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="Address maps link"
             validators={[]}
-            
+            initialValue={data.addressLink}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="email"
@@ -177,8 +235,9 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="E-mail"
             validators={[]}
-            
+            initialValue={data.email}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="website"
@@ -186,8 +245,9 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="website"
             validators={[]}
-            
+            initialValue={data.website}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="mobile"
@@ -195,8 +255,50 @@ const AddBusiness = ({ setData }) => {
             type="number"
             label="Mobile number"
             validators={[]}
-            
+            initialValue={data.mobile}
             onInput={inputHandler}
+            initialValid={true}
+          />
+
+          <Input
+            id="facebook"
+            element="input"
+            type="text"
+            label="facebook"
+            validators={[]}
+            initialValue={data.facebook}
+            onInput={inputHandler}
+            initialValid={true}
+          />
+          <Input
+            id="insta"
+            element="input"
+            type="text"
+            label="insta"
+            validators={[]}
+            initialValue={data.insta}
+            onInput={inputHandler}
+            initialValid={true}
+          />
+          <Input
+            id="twitter"
+            element="input"
+            type="text"
+            label="twitter"
+            validators={[]}
+            initialValue={data.twitter}
+            onInput={inputHandler}
+            initialValid={true}
+          />
+          <Input
+            id="linkedin"
+            element="input"
+            type="text"
+            label="linkedin"
+            validators={[]}
+            initialValue={data.linkedin}
+            onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="year"
@@ -204,8 +306,9 @@ const AddBusiness = ({ setData }) => {
             type="number"
             label="Year of establishment"
             validators={[[]]}
-            
+            initialValue={data.year}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="nature"
@@ -213,20 +316,40 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="Nature of business"
             validators={[]}
-            
+            initialValue={data.nature}
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
-            id="specialities"
+            id="speciality1"
             type="text"
-            label="Specialities"
+            label="Speciality1"
             validators={[]}
-            
+            initialValue={data.speciality1}
             onInput={inputHandler}
+            initialValid={true}
+          />
+          <Input
+            id="speciality2"
+            type="text"
+            label="Speciality2"
+            validators={[]}
+            initialValue={data.speciality2}
+            onInput={inputHandler}
+            initialValid={true}
+          />
+          <Input
+            id="speciality3"
+            type="text"
+            label="Speciality3"
+            validators={[]}
+            initialValue={data.speciality3}
+            onInput={inputHandler}
+            initialValid={true}
           />
 
           <Button type="submit" disabled={!formState.isValid}>
-            Add Business
+            Edit Business
           </Button>
         </form>
       </Card>
@@ -234,4 +357,4 @@ const AddBusiness = ({ setData }) => {
   );
 };
 
-export default AddBusiness;
+export default EditBusiness;

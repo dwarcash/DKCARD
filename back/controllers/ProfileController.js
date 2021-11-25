@@ -64,7 +64,30 @@ const signUp = async (req, res, next) => {
 }
 
 
-const postCard = async (req, res, next) => {
+const addBusiness = async (req, res, next) => {
+    const { loginEmail, ...rest } = req.body;
+
+    console.log(rest)
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    for (const key in rest) {
+        console.log(key, rest.key)
+        existingUser[key] = rest[key]
+    }
+
+    await existingUser.save();
+
+    console.log(existingUser.toObject())
+
+    res.json(existingUser.toObject())
+}
+
+const editBusiness = async (req, res, next) => {
     const { loginEmail, ...rest } = req.body;
 
     console.log(rest)
@@ -110,8 +133,46 @@ const addProduct = async (req, res, next) => {
 }
 
 
+const addGallery = async (req, res, next) => {
+    const { loginEmail, urls } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    existingUser.gallery.push(...urls)
+
+    await existingUser.save();
+
+    res.json(existingUser.toObject())
+}
+
+const addLogo = async (req, res, next) => {
+    const { loginEmail, url } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    existingUser.companyLogoUrl = url
+
+    await existingUser.save();
+
+    res.json(existingUser.toObject())
+}
+
+
 
 exports.login = login;
 exports.signUp = signUp;
-exports.postCard = postCard;
+exports.addBusiness = addBusiness;
+exports.editBusiness = editBusiness;
 exports.addProduct = addProduct;
+exports.addGallery = addGallery;
+exports.addLogo = addLogo;

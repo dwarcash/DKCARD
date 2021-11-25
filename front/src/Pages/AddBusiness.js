@@ -200,6 +200,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
             errorText="Please enter your company name."
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="companyLogoUrl"
@@ -209,6 +210,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
 
           <Input
@@ -219,6 +221,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
 
           <Input
@@ -229,6 +232,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
 
           <Input
@@ -239,6 +243,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
 
           <Input
@@ -249,6 +254,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="addressLink"
@@ -258,6 +264,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="email"
@@ -267,6 +274,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="website"
@@ -276,6 +284,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="mobile"
@@ -285,6 +294,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
 
           <Input
@@ -295,6 +305,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="insta"
@@ -304,6 +315,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="twitter"
@@ -313,6 +325,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="linkedin"
@@ -322,6 +335,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="year"
@@ -331,6 +345,7 @@ const AddBusiness = ({ setData }) => {
             validators={[[]]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="nature"
@@ -340,6 +355,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="speciality1"
@@ -348,6 +364,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="speciality2"
@@ -356,6 +373,7 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
           <Input
             id="speciality3"
@@ -364,7 +382,9 @@ const AddBusiness = ({ setData }) => {
             validators={[]}
 
             onInput={inputHandler}
+            initialValid={true}
           />
+          SELECT LOGO
           <input type="file" onChange={(e) => setLogo(e.target.files[0])} />
           <Button type="submit" disabled={!formState.isValid}>
             Add Business

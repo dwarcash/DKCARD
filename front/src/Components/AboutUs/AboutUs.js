@@ -45,7 +45,13 @@ export default class Profile extends React.Component {
                 <h3 class="speciality-label">Our Specialities</h3>
 
                 <div class="about-us-text">
-                {this.props.data.specialities}
+                    {this.props.data.speciality1}
+                </div>
+                <div class="about-us-text">
+                    {this.props.data.speciality2}
+                </div>
+                <div class="about-us-text">
+                    {this.props.data.speciality3}
                 </div>
 
 

@@ -22,7 +22,9 @@ export default class Profile extends React.Component {
 
 
                     {/* <!-- User First Name and Last Name --> */}
-                    <div className="name">{this.props.data.founders}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}>(Founder)</i></span></div>
+                    <div className="name">{this.props.data.founder1}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}>(Founder)</i></span></div>
+                    <div className="name">{this.props.data.founder2}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}>(Founder)</i></span></div>
+                    <div className="name">{this.props.data.founder3}<span style={{ marginTop: '5px', display: 'inline' }}><i style={{ fontSize: '12px' }}>(Founder)</i></span></div>
                     <div class="contact-buttons">
                         <a class="contact-button" href={`tel:${this.props.data.mobile}`}>
                             <i class="fas fa-phone fa-flip-horizontal"></i>
@@ -139,25 +141,16 @@ export default class Profile extends React.Component {
 
                     <ul class="inprofile share-buttons">
                         <li class="share-button">
-                            <a target="_blank" href="https://www.facebook.com/Digital-Vcard-101768194678968"><i class="share-button-facebook fab fa-facebook-f"></i></a>
+                            <a target="_blank" href={`${this.props.data.facebook}`}><i class="share-button-facebook fab fa-facebook-f"></i></a>
                         </li>
                         <li class="share-button">
-                            <a target="_blank" ><i class="share-button-twitter fab fa-twitter"></i></a>
+                            <a target="_blank"  href={`${this.props.data.twitter}`}><i class="share-button-twitter fab fa-twitter"></i></a>
                         </li>
                         <li class="share-button">
-                            <a target="_blank" ><i class="share-button-instagram fab fa-instagram"></i></a>
+                            <a target="_blank" href={`${this.props.data.instagram}`} ><i class="share-button-instagram fab fa-instagram"></i></a>
                         </li>
                         <li class="share-button">
-                            <a target="_blank" ><i class="share-button-youtube fab fa-youtube"></i></a>
-                        </li>
-                        <li class="share-button">
-                            <a target="_blank" ><i class="share-button-pinterest fab fa-pinterest-p"></i></a>
-                        </li>
-                        <li class="share-button">
-                            <a target="_blank" ><i class="share-button-linkedin fab fa-linkedin-in"></i></a>
-                        </li>
-                        <li class="share-button">
-                            <a target="_blank" ><i class="share-button-telegram fab fa-telegram-plane"></i></a>
+                            <a target="_blank" href={`${this.props.data.linkedin}`} ><i class="share-button-linkedin fab fa-linkedin-in"></i></a>
                         </li>
                     </ul>
 

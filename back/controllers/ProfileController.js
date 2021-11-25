@@ -17,12 +17,12 @@ const login = async (req, res, next) => {
     }
 
     if (!existingUser) {
-        return res.status(403).json({message: 'user doesnt exis, sign up instead'})
+        return res.status(403).json({ message: 'user doesnt exis, sign up instead' })
         /* return next(new HttpError('user doesnt exis, sign up instead', 403)); */
     }
 
     if (password !== existingUser.password) {
-        return res.status(403).json({message: 'invalid password'})
+        return res.status(403).json({ message: 'invalid password' })
         /* return next(new HttpError('invalid password', 403)); */
     }
 
@@ -42,7 +42,7 @@ const signUp = async (req, res, next) => {
     }
 
     if (existingUser) {
-        return res.status(403).json({message: 'User already exist.'})
+        return res.status(403).json({ message: 'User already exist.' })
         /* return next(new HttpError('User already exist.', 403)); */
     }
 
@@ -67,6 +67,7 @@ const signUp = async (req, res, next) => {
 const postCard = async (req, res, next) => {
     const { loginEmail, ...rest } = req.body;
 
+    console.log(rest)
     let existingUser;
     try {
         existingUser = await User.findOne({ loginEmail });
@@ -86,6 +87,31 @@ const postCard = async (req, res, next) => {
     res.json(existingUser.toObject())
 }
 
+
+
+
+const addProduct = async (req, res, next) => {
+    const { loginEmail, name, image } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ loginEmail });
+    } catch (err) {
+        return next(new HttpError('login failed, try again later', 500));
+    }
+
+    existingUser.products.push({
+        name, image
+    })
+
+    await existingUser.save();
+
+    res.json(existingUser.toObject())
+}
+
+
+
 exports.login = login;
 exports.signUp = signUp;
 exports.postCard = postCard;
+exports.addProduct = addProduct;

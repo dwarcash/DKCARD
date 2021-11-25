@@ -10,17 +10,17 @@ import Menu from '../Components/Menu/Menu'
 import ImageModal from '../Components/ImageModal/ImageModal'
 import ShareModal from '../Components/ShareModal/ShareModal'
 
-export default function Home({data}) {
+export default function Home({data, setData}) {
     return (
         <React.Fragment>
 
-            <Profile data={data}/>
-            <AboutUs data={data}/>
-            <Products data={data}/>
-            <Gallery data={data}/>
-            <Feedback data={data}/>
-            <Enquiry data={data}/>
-            <Footer data={data}/>
+            <Profile data={data} setData={setData} />
+            <AboutUs data={data} setData={setData} />
+            <Products data={data} setData={setData} />
+            <Gallery data={data} setData={setData} />
+            <Feedback data={data} setData={setData} />
+            <Enquiry data={data} setData={setData} />
+            <Footer data={data} setData={setData} />
             <Menu />
 
             {/* Functional Rendering */}

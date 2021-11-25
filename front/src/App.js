@@ -26,7 +26,7 @@ function App() {
       {data ?
 
         data.companyName ?
-        <Home data={data}/> :
+        <Home data={data} setData={setData}/> :
         <AddBusiness setData={setData}/> :
 
         <Auth setData={setData} />

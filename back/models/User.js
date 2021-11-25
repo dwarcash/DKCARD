@@ -7,15 +7,30 @@ const userSchema = new Schema({
     password: String,
     companyName: String,
     companyLogoUrl: String,
-    founders: String,
+    founder1: String,
+    founder2: String,
+    founder3: String,
     address: String,
     addressLink: String,
     email: String,
     website: String,
-    mobile: String,
-    year: String,
+    mobile: Number,
+    facebook: String,
+    insta: String,
+    twitter: String,
+    linkedin: String,
+    year: Number,
     nature: String,
-    specialities: String,
+    speciality1: String,
+    speciality2: String,
+    speciality3: String,
+    products: [
+        {
+            name: String,
+            image: String
+        }
+    ],
+    gallery: [String]
 });
 
 module.exports = mongoose.model('User', userSchema)

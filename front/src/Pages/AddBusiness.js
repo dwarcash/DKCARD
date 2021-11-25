@@ -14,6 +14,7 @@ import {
 } from '../shared/util/validators';
 import { useForm } from '../shared/hooks/form-hook';
 import { useHttpClient } from '../shared/hooks/http-hook';
+import { storage } from '../firebase';
 
 const AddBusiness = ({ setData }) => {
 
@@ -25,11 +26,15 @@ const AddBusiness = ({ setData }) => {
         value: '',
         valid: true,
       },
-      companyLogoUrl: {
+      founder1: {
         value: '',
         valid: true,
       },
-      founders: {
+      founder2: {
+        value: '',
+        valid: true,
+      },
+      founder3: {
         value: '',
         valid: true,
       },
@@ -53,6 +58,22 @@ const AddBusiness = ({ setData }) => {
         value: '',
         valid: true,
       },
+      facebook: {
+        value: '',
+        valid: true,
+      },
+      insta: {
+        value: '',
+        valid: true,
+      },
+      twitter: {
+        value: '',
+        valid: true,
+      },
+      linkedin: {
+        value: '',
+        valid: true,
+      },
       year: {
         value: '',
         valid: true,
@@ -61,7 +82,15 @@ const AddBusiness = ({ setData }) => {
         value: '',
         valid: true,
       },
-      specialities: {
+      speciality1: {
+        value: '',
+        valid: true,
+      },
+      speciality2: {
+        value: '',
+        valid: true,
+      },
+      speciality3: {
         value: '',
         valid: true,
       },
@@ -69,7 +98,7 @@ const AddBusiness = ({ setData }) => {
     true
   );
 
-
+  const [logo, setLogo] = useState()
 
 
   const submitHandler = async (event) => {
@@ -79,42 +108,76 @@ const AddBusiness = ({ setData }) => {
 
       const localData = JSON.parse(localStorage.getItem('data'))
 
-      const data = {
-        loginEmail: localData.loginEmail,
-        companyName: formState.inputs.companyName.value,
-        companyLogoUrl: formState.inputs.companyLogoUrl.value,
-        founders: formState.inputs.founders.value,
-        address: formState.inputs.address.value,
-        addressLink: formState.inputs.addressLink.value,
-        email: formState.inputs.email.value,
-        website: formState.inputs.website.value,
-        mobile: formState.inputs.mobile.value,
-        year: formState.inputs.year.value,
-        nature: formState.inputs.nature.value,
-        specialities: formState.inputs.specialities.value,
-      }
-      
-      const responseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + '/addBusiness',
-        'POST',
-        JSON.stringify(data),
-        {
-          'Content-Type': 'application/json',
+      let downloadURL
+      const uploadTask = storage.ref(`images/${logo.name}`).put(logo);
+      uploadTask.on(
+        "state_changed",
+        snapshot => { },
+        error => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(logo.name)
+            .getDownloadURL()
+            .then(async url => {
+
+
+              downloadURL = url
+
+              const data = {
+                loginEmail: localData.loginEmail,
+                companyName: formState.inputs.companyName.value,
+                companyLogoUrl: downloadURL,
+                founder1: formState.inputs.founder1.value,
+                founder2: formState.inputs.founder2.value,
+                founder3: formState.inputs.founder3.value,
+                address: formState.inputs.address.value,
+                addressLink: formState.inputs.addressLink.value,
+                email: formState.inputs.email.value,
+                website: formState.inputs.website.value,
+                mobile: formState.inputs.mobile.value,
+                facebook: formState.inputs.facebook.value,
+                insta: formState.inputs.insta.value,
+                twitter: formState.inputs.twitter.value,
+                linkedin: formState.inputs.linkedin.value,
+                year: formState.inputs.year.value,
+                nature: formState.inputs.nature.value,
+                speciality1: formState.inputs.speciality1.value,
+                speciality2: formState.inputs.speciality2.value,
+                speciality3: formState.inputs.speciality3.value,
+
+              }
+
+              const responseData = await sendRequest(
+                process.env.REACT_APP_BACKEND_URL + '/addBusiness',
+                'POST',
+                JSON.stringify(data),
+                {
+                  'Content-Type': 'application/json',
+                }
+              );
+
+
+              setData(oldData => {
+
+                const finalData = {
+                  ...oldData,
+                  ...data
+                }
+
+                localStorage.setItem('data', JSON.stringify(finalData))
+
+                return finalData
+              })
+
+            });
         }
       );
 
 
-      setData(oldData => {
 
-        const finalData = {
-          ...oldData,
-          ...data
-        }
-        
-        localStorage.setItem('data', JSON.stringify(finalData))
-
-        return finalData
-      })
 
     } catch (err) { console.log(err) }
 
@@ -138,32 +201,53 @@ const AddBusiness = ({ setData }) => {
             errorText="Please enter your company name."
             onInput={inputHandler}
           />
-         <Input
+          <Input
             id="companyLogoUrl"
             element="input"
             type="text"
             label="Company Logo Image URL"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
-          
-           <Input
-            id="founders"
+
+          <Input
+            id="founder1"
             element="input"
             type="text"
-            label="Founder Name"
+            label="Founder 1"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
+
+          <Input
+            id="founder2"
+            element="input"
+            type="text"
+            label="Founder 2"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+
+          <Input
+            id="founder3"
+            element="input"
+            type="text"
+            label="Founder 3"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+
           <Input
             id="address"
             element="input"
             type="text"
             label="Address"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
           <Input
@@ -172,7 +256,7 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="Address maps link"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
           <Input
@@ -181,7 +265,7 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="E-mail"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
           <Input
@@ -190,7 +274,7 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="website"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
           <Input
@@ -199,7 +283,44 @@ const AddBusiness = ({ setData }) => {
             type="number"
             label="Mobile number"
             validators={[]}
-            
+
+            onInput={inputHandler}
+          />
+
+          <Input
+            id="facebook"
+            element="input"
+            type="text"
+            label="facebook"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+          <Input
+            id="insta"
+            element="input"
+            type="text"
+            label="insta"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+          <Input
+            id="twitter"
+            element="input"
+            type="text"
+            label="twitter"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+          <Input
+            id="linkedin"
+            element="input"
+            type="text"
+            label="linkedin"
+            validators={[]}
+
             onInput={inputHandler}
           />
           <Input
@@ -208,7 +329,7 @@ const AddBusiness = ({ setData }) => {
             type="number"
             label="Year of establishment"
             validators={[[]]}
-            
+
             onInput={inputHandler}
           />
           <Input
@@ -217,18 +338,34 @@ const AddBusiness = ({ setData }) => {
             type="text"
             label="Nature of business"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
           <Input
-            id="specialities"
+            id="speciality1"
             type="text"
-            label="Specialities"
+            label="Speciality1"
             validators={[]}
-            
+
             onInput={inputHandler}
           />
+          <Input
+            id="speciality2"
+            type="text"
+            label="Speciality2"
+            validators={[]}
 
+            onInput={inputHandler}
+          />
+          <Input
+            id="speciality3"
+            type="text"
+            label="Speciality3"
+            validators={[]}
+
+            onInput={inputHandler}
+          />
+          <input type="file" onChange={(e) => setLogo(e.target.files[0])} />
           <Button type="submit" disabled={!formState.isValid}>
             Add Business
           </Button>
